@@ -1,0 +1,39 @@
+version: '3.7'
+services:
+  data-index:
+    container_name: kogito-data-index
+    image: quay.io/kiegroup/kogito-data-index-mongodb:latest
+    environment:
+      QUARKUS_MONGODB_CONNECTION_STRING: "mongodb//localhost:27017"
+      KAFKA_BOOTSTRAP_SERVERS: kafka:29092
+      QUARKUS_VERTX_MAX_EVENT_LOOP_EXECUTE_TIME: "10S"
+      QUARKUS_VERTX_WARNING_EXCEPTION_TIME: "10S"
+    ports:
+      - 8180:8080
+    depends_on:
+      - kafka
+  kafka:
+    command:
+      - redpanda
+      - start
+      - '--smp'
+      - '1'
+      - '--reserve-memory'
+      - 0M
+      - '--overprovisioned'
+      - '--node-id'
+      - '1'
+      - '--kafka-addr'
+      - 'INSIDE://0.0.0.0:29092,OUTSIDE://0.0.0.0:9092'
+      - '--advertise-kafka-addr'
+      - 'INSIDE://kafka:29092,OUTSIDE://localhost:9092'
+    # NOTE: Please use the latest version here!
+    image: docker.vectorized.io/vectorized/redpanda:latest
+    container_name: kafka
+    ports:
+      - 9092:9092
+      - 29092:29092
+
+# docker exec -it kafka rpk topic create twitch_chat --brokers=localhost:9092
+# docker exec -it kafka rpk topic produce twitch_chat --brokers=localhost:9092
+# docker exec -it kafka rpk topic consume twitch_chat --brokers=localhost:9092

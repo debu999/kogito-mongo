@@ -1,0 +1,14 @@
+package org.doogle.rules;
+
+unit PersonUnit; 
+
+import org.doogle.rules.Person;
+
+rule "Is adult"
+when
+    $person: /person[age > 18]
+then
+    modify($person) { 
+    	setAdult(true) 
+    };
+end
