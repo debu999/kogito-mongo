@@ -2206,7 +2206,7 @@
       "groups": []
     },
     {
-      "username": "joe",
+      "username": "jdoe",
       "enabled": true,
       "totp": false,
       "emailVerified": false,
@@ -2232,6 +2232,138 @@
         "managers",
         "user",
         "IT"
+      ],
+      "notBefore": 0,
+      "groups": []
+    },
+    {
+      "username": "john",
+      "enabled": true,
+      "totp": false,
+      "emailVerified": false,
+      "credentials": [
+        {
+          "type": "password",
+          "hashedSaltedValue": "NICTtwsvSxJ5hL8hLAuleDUv9jwZcuXgxviMXvR++cciyPtiIEStEaJUyfA9DOir59awjPrHOumsclPVjNBplA==",
+          "salt": "T/2P5o5oxFJUEk68BRURRg==",
+          "hashIterations": 27500,
+          "counter": 0,
+          "algorithm": "pbkdf2-sha256",
+          "digits": 0,
+          "period": 0,
+          "createdDate": 1554245879354,
+          "config": {}
+        }
+      ],
+      "disableableCredentialTypes": [
+        "password"
+      ],
+      "requiredActions": [],
+      "realmRoles": [
+        "admin",
+        "managers",
+        "user",
+        "IT",
+        "HR"
+      ],
+      "notBefore": 0,
+      "groups": []
+    },
+    {
+      "username": "mary",
+      "enabled": true,
+      "totp": false,
+      "emailVerified": false,
+      "credentials": [
+        {
+          "type": "password",
+          "hashedSaltedValue": "NICTtwsvSxJ5hL8hLAuleDUv9jwZcuXgxviMXvR++cciyPtiIEStEaJUyfA9DOir59awjPrHOumsclPVjNBplA==",
+          "salt": "T/2P5o5oxFJUEk68BRURRg==",
+          "hashIterations": 27500,
+          "counter": 0,
+          "algorithm": "pbkdf2-sha256",
+          "digits": 0,
+          "period": 0,
+          "createdDate": 1554245879354,
+          "config": {}
+        }
+      ],
+      "disableableCredentialTypes": [
+        "password"
+      ],
+      "requiredActions": [],
+      "realmRoles": [
+        "admin",
+        "managers",
+        "user",
+        "IT",
+        "HR"
+      ],
+      "notBefore": 0,
+      "groups": []
+    },
+    {
+      "username": "paul",
+      "enabled": true,
+      "totp": false,
+      "emailVerified": false,
+      "credentials": [
+        {
+          "type": "password",
+          "hashedSaltedValue": "NICTtwsvSxJ5hL8hLAuleDUv9jwZcuXgxviMXvR++cciyPtiIEStEaJUyfA9DOir59awjPrHOumsclPVjNBplA==",
+          "salt": "T/2P5o5oxFJUEk68BRURRg==",
+          "hashIterations": 27500,
+          "counter": 0,
+          "algorithm": "pbkdf2-sha256",
+          "digits": 0,
+          "period": 0,
+          "createdDate": 1554245879354,
+          "config": {}
+        }
+      ],
+      "disableableCredentialTypes": [
+        "password"
+      ],
+      "requiredActions": [],
+      "realmRoles": [
+        "admin",
+        "managers",
+        "user",
+        "IT",
+        "HR"
+      ],
+      "notBefore": 0,
+      "groups": []
+    },
+    {
+      "username": "deb",
+      "enabled": true,
+      "totp": false,
+      "emailVerified": false,
+      "credentials": [
+        {
+          "type": "password",
+          "hashedSaltedValue": "NICTtwsvSxJ5hL8hLAuleDUv9jwZcuXgxviMXvR++cciyPtiIEStEaJUyfA9DOir59awjPrHOumsclPVjNBplA==",
+          "salt": "T/2P5o5oxFJUEk68BRURRg==",
+          "hashIterations": 27500,
+          "counter": 0,
+          "algorithm": "pbkdf2-sha256",
+          "digits": 0,
+          "period": 0,
+          "createdDate": 1554245879354,
+          "config": {}
+        }
+      ],
+      "disableableCredentialTypes": [
+        "password"
+      ],
+      "requiredActions": [],
+      "realmRoles": [
+        "admin",
+        "managers",
+        "user",
+        "IT",
+        "HR"
       ],
       "notBefore": 0,
       "groups": []
