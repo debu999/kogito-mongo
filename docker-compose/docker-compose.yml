@@ -1,0 +1,96 @@
+version: '2.1'
+services:
+  task-console:
+    container_name: task-console
+    image: quay.io/kiegroup/kogito-task-console:${KOGITO_VERSION}
+    ports:
+      - 8380:8080
+    depends_on:
+      data-index:
+        condition: service_started
+      keycloak:
+        condition: service_healthy
+    environment:
+      KOGITO_DATAINDEX_HTTP_URL: http://localhost:8180/graphql
+      KOGITO_TASK_CONSOLE_PROPS: -Dkogito.consoles.keycloak.config.url=http://localhost:8480/auth -Dkogito.consoles.keycloak.config.health-check-url=http://localhost:8480/auth/realms/kogito/.well-known/openid-configuration
+  management-console:
+    container_name: management-console
+    image: quay.io/kiegroup/kogito-management-console:${KOGITO_VERSION}
+    environment:
+      QUARKUS_VERTX_MAX_EVENT_LOOP_EXECUTE_TIME: "10S"
+      QUARKUS_VERTX_WARNING_EXCEPTION_TIME: "10S"
+      KOGITO_DATAINDEX_HTTP_URL: http://localhost:8180/graphql
+      KOGITO_MANAGEMENT_CONSOLE_PROPS: -Dkogito.consoles.keycloak.config.url=http://localhost:8480/auth -Dkogito.consoles.keycloak.config.health-check-url=http://localhost:8480/auth/realms/kogito/.well-known/openid-configuration -Dkogito.svg.folder.path=/home/kogito/data/svg
+      SCRIPT_DEBUG: ${SCRIPT_DEBUG}
+    ports:
+      - 8280:8080
+    depends_on:
+      data-index:
+        condition: service_started
+      keycloak:
+        condition: service_healthy
+    volumes:
+      - ./svg/:/home/kogito/data/svg/
+  data-index:
+    container_name: kogito-data-index
+    image: quay.io/kiegroup/kogito-data-index-mongodb:${KOGITO_VERSION}
+    environment:
+      QUARKUS_MONGODB_CONNECTION_STRING: "mongodb://localhost:27017"
+      KAFKA_BOOTSTRAP_SERVERS: kafka:29092
+      QUARKUS_VERTX_MAX_EVENT_LOOP_EXECUTE_TIME: "10S"
+      QUARKUS_VERTX_WARNING_EXCEPTION_TIME: "10S"
+      QUARKUS_INFINISPAN_CLIENT_USE_AUTH: "false"
+      KOGITO_DATA_INDEX_PROPS: -Dkogito.protobuf.folder=/home/kogito/data/protobufs/
+      KOGITO_SERVICE_URL: http://${DOCKER_GATEWAY_HOST}:8080
+      DOCKER_GATEWAY_HOST: ${DOCKER_GATEWAY_HOST}
+      SCRIPT_DEBUG: ${SCRIPT_DEBUG}
+    ports:
+      - 8180:8080
+    depends_on:
+      kafka:
+        condition: service_started
+    volumes:
+      - ./persistence/:/home/kogito/data/protobufs/
+  kafka:
+    command:
+      - redpanda
+      - start
+      - '--smp'
+      - '1'
+      - '--reserve-memory'
+      - 0M
+      - '--overprovisioned'
+      - '--node-id'
+      - '1'
+      - '--kafka-addr'
+      - 'INSIDE://0.0.0.0:29092,OUTSIDE://0.0.0.0:9092'
+      - '--advertise-kafka-addr'
+      - 'INSIDE://kafka:29092,OUTSIDE://localhost:9092'
+    # NOTE: Please use the latest version here!
+    image: docker.vectorized.io/vectorized/redpanda:${KOGITO_VERSION}
+    container_name: kafka
+    ports:
+      - 9092:9092
+      - 29092:29092
+    environment:
+      DOCKER_GATEWAY_HOST: ${DOCKER_GATEWAY_HOST}
+  keycloak:
+    container_name: keycloak
+    image: wizzn/keycloak:14
+    ports:
+      - "8480:8080"
+    volumes:
+      - ./keycloak/kogito-realm.json:/tmp/kogito-realm.json
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8080/auth/realms/kogito" ]
+      interval: 1s
+      timeout: 1s
+      retries: 50
+    environment:
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: admin
+      KEYCLOAK_IMPORT: /tmp/kogito-realm.json
+
+# docker exec -it kafka rpk topic create twitch_chat --brokers=localhost:9092
+# docker exec -it kafka rpk topic produce twitch_chat --brokers=localhost:9092
+# docker exec -it kafka rpk topic consume twitch_chat --brokers=localhost:9092

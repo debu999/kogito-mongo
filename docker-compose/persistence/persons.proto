@@ -1,0 +1,28 @@
+syntax = "proto2"; 
+package org.doogle.processquarkus.persons; 
+import "kogito-index.proto";
+import "kogito-types.proto";
+option kogito_model = "Persons";
+option kogito_id = "persons";
+
+/* @Indexed */ 
+message Person { 
+	option java_package = "org.doogle.processquarkus";
+	/* @Field(index = Index.NO, store = Store.YES) @SortableField */ 
+	optional bool adult = 1; 
+	/* @Field(index = Index.NO, store = Store.YES) @SortableField */ 
+	optional int32 age = 2; 
+	/* @Field(index = Index.NO, store = Store.YES) @SortableField */ 
+	optional string name = 3; 
+}
+/* @Indexed */ 
+message Persons { 
+	option java_package = "org.doogle.processquarkus";
+	/* @Field(index = Index.YES, store = Store.YES) @SortableField */ 
+	optional string id = 1; 
+	/* @Field(index = Index.NO, store = Store.YES) @SortableField
+ @VariableInfo(tags="") */ 
+	optional Person person = 2; 
+	/* @Field(index = Index.NO, store = Store.YES) @SortableField */ 
+	optional org.kie.kogito.index.model.KogitoMetadata metadata = 3; 
+}

@@ -1,0 +1,31 @@
+syntax = "proto2"; 
+package org.doogle.processquarkus.orders; 
+import "kogito-index.proto";
+import "kogito-types.proto";
+option kogito_model = "Orders";
+option kogito_id = "orders";
+
+/* @Indexed */ 
+message Order { 
+	option java_package = "org.doogle.processquarkus";
+	/* @Field(index = Index.NO, store = Store.YES) @SortableField */ 
+	optional string orderNumber = 1; 
+	/* @Field(index = Index.NO, store = Store.YES) @SortableField */ 
+	optional bool shipped = 2; 
+	/* @Field(index = Index.NO, store = Store.YES) @SortableField */ 
+	optional double total = 3; 
+}
+/* @Indexed */ 
+message Orders { 
+	option java_package = "org.doogle.processquarkus";
+	/* @Field(index = Index.NO, store = Store.YES) @SortableField
+ @VariableInfo(tags="") */ 
+	optional string approver = 1; 
+	/* @Field(index = Index.YES, store = Store.YES) @SortableField */ 
+	optional string id = 2; 
+	/* @Field(index = Index.NO, store = Store.YES) @SortableField
+ @VariableInfo(tags="") */ 
+	optional Order order = 3; 
+	/* @Field(index = Index.NO, store = Store.YES) @SortableField */ 
+	optional org.kie.kogito.index.model.KogitoMetadata metadata = 4; 
+}

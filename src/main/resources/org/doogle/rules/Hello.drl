@@ -1,0 +1,15 @@
+package org.doogle.rules;
+
+unit Hello;
+
+rule helloWorld
+when
+    $s: /strings[ this == "hello" ]
+then
+    strings.add("world");
+    strings.add("Ashu quarkus welcome");
+end
+
+query hello
+  $s : /strings
+end
