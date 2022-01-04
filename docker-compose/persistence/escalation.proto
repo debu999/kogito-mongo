@@ -1,0 +1,37 @@
+syntax = "proto2"; 
+package org.doogle.violations.escalation; 
+import "kogito-index.proto";
+import "kogito-types.proto";
+option kogito_model = "Escalation";
+option kogito_id = "escalation";
+
+/* @Indexed */ 
+message Escalation { 
+	option java_package = "org.doogle.violations";
+	/* @Field(index = Index.NO, store = Store.YES) @SortableField
+ @VariableInfo(tags="escalate") */ 
+	optional bool escalate = 1; 
+	/* @Field(index = Index.YES, store = Store.YES) @SortableField */ 
+	optional string id = 2; 
+	/* @Field(index = Index.NO, store = Store.YES) @SortableField
+ @VariableInfo(tags="lifecycle") */ 
+	optional Lifecycle lifecycle = 3; 
+	/* @Field(index = Index.NO, store = Store.YES) @SortableField */ 
+	optional org.kie.kogito.index.model.KogitoMetadata metadata = 4; 
+}
+/* @Indexed */ 
+message Lifecycle { 
+	option java_package = "org.doogle.violations";
+	/* @Field(index = Index.NO, store = Store.YES) @SortableField */ 
+	optional string businessDate = 1; 
+	/* @Field(index = Index.NO, store = Store.YES) @SortableField */ 
+	optional kogito.Date createDate = 2; 
+	/* @Field(index = Index.NO, store = Store.YES) @SortableField */ 
+	optional string lifecycleIdentifier = 3; 
+	/* @Field(index = Index.NO, store = Store.YES) @SortableField */ 
+	optional string lifecycleType = 4; 
+	/* @Field(index = Index.NO, store = Store.YES) @SortableField */ 
+	optional string lineOfBusiness = 5; 
+	/* @Field(index = Index.NO, store = Store.YES) @SortableField */ 
+	optional string subject = 6; 
+}

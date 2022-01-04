@@ -4,10 +4,11 @@ unit Hello;
 
 rule helloWorld
 when
-    $s: /strings[ this == "hello" ]
+    $s: /strings[ this == "anand" ]
 then
     strings.add("world");
     strings.add("Ashu quarkus welcome");
+    strings.add("Anand quarkus welcome");
 end
 
 query hello

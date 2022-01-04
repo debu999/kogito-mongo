@@ -1,0 +1,59 @@
+syntax = "proto2"; 
+package org.doogle.violations.controlDecisions; 
+import "kogito-index.proto";
+import "kogito-types.proto";
+option kogito_model = "ControlDecisions";
+option kogito_id = "controlDecisions";
+
+/* @Indexed */ 
+message ControlDecision { 
+	option java_package = "org.doogle.violations";
+	/* @Field(index = Index.NO, store = Store.YES) @SortableField */ 
+	optional kogito.Date closedDate = 1; 
+	/* @Field(index = Index.NO, store = Store.YES) @SortableField */ 
+	optional string controlDecisionIdentifier = 2; 
+	/* @Field(index = Index.NO, store = Store.YES) @SortableField */ 
+	optional kogito.Date creationDate = 3; 
+	/* @Field(index = Index.NO, store = Store.YES) @SortableField */ 
+	optional string group = 4; 
+	/* @Field(index = Index.NO, store = Store.YES) @SortableField */ 
+	optional string originationSource = 5; 
+	/* @Field(index = Index.NO, store = Store.YES) @SortableField */ 
+	optional string state = 6; 
+}
+/* @Indexed */ 
+message ControlDecisions { 
+	option java_package = "org.doogle.violations";
+	/* @Field(index = Index.NO, store = Store.YES) @SortableField
+ @VariableInfo(tags="controlDecision") */ 
+	optional ControlDecision controlDecision = 1; 
+	/* @Field(index = Index.NO, store = Store.YES) @SortableField
+ @VariableInfo(tags="escalate") */ 
+	optional bool escalate = 2; 
+	/* @Field(index = Index.YES, store = Store.YES) @SortableField */ 
+	optional string id = 3; 
+	/* @Field(index = Index.NO, store = Store.YES) @SortableField
+ @VariableInfo(tags="lifecycle") */ 
+	optional Lifecycle lifecycle = 4; 
+	/* @Field(index = Index.NO, store = Store.YES) @SortableField
+ @VariableInfo(tags="moreescalation") */ 
+	optional bool moreescalation = 5; 
+	/* @Field(index = Index.NO, store = Store.YES) @SortableField */ 
+	optional org.kie.kogito.index.model.KogitoMetadata metadata = 6; 
+}
+/* @Indexed */ 
+message Lifecycle { 
+	option java_package = "org.doogle.violations";
+	/* @Field(index = Index.NO, store = Store.YES) @SortableField */ 
+	optional string businessDate = 1; 
+	/* @Field(index = Index.NO, store = Store.YES) @SortableField */ 
+	optional kogito.Date createDate = 2; 
+	/* @Field(index = Index.NO, store = Store.YES) @SortableField */ 
+	optional string lifecycleIdentifier = 3; 
+	/* @Field(index = Index.NO, store = Store.YES) @SortableField */ 
+	optional string lifecycleType = 4; 
+	/* @Field(index = Index.NO, store = Store.YES) @SortableField */ 
+	optional string lineOfBusiness = 5; 
+	/* @Field(index = Index.NO, store = Store.YES) @SortableField */ 
+	optional string subject = 6; 
+}
