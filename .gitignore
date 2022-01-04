@@ -38,3 +38,5 @@ nb-configuration.xml
 # Local environment
 .env
 /.mvn/wrapper/maven-wrapper.jar
+/docker-compose/data/m1/
+/docker-compose/data/m2/
